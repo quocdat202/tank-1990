@@ -234,9 +234,11 @@ export function GameLoop() {
 
     // Apply bullet removals
     if (bulletsToRemove.length > 0) {
-      const remaining = updatedBullets.filter((b) => !bulletsToRemove.includes(b.id));
+      const removeSet = new Set(bulletsToRemove);
+      const remaining = updatedBullets.filter((b) => !removeSet.has(b.id));
       useBulletStore.setState({ bullets: remaining });
-      for (const id of bulletsToRemove) {
+      // Use Set to call bulletDestroyed exactly once per unique bullet
+      for (const id of removeSet) {
         const b = bullets.find((bb) => bb.id === id);
         if (b && b.isPlayerBullet) {
           usePlayerStore.getState().bulletDestroyed(b.ownerId);

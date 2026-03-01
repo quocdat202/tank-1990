@@ -68,24 +68,37 @@ export const useMapStore = create<MapState>((set, get) => ({
 
     const newSub: BrickSubTiles = [...sub];
 
-    // Destroy half of the brick based on bullet direction
+    // Determine which sub-tiles to target based on bullet direction
+    let targets: number[];
     switch (direction) {
       case 'UP':
-        newSub[2] = false; // bottom-left
-        newSub[3] = false; // bottom-right
+        targets = [2, 3]; // bottom-left, bottom-right
         break;
       case 'DOWN':
-        newSub[0] = false; // top-left
-        newSub[1] = false; // top-right
+        targets = [0, 1]; // top-left, top-right
         break;
       case 'LEFT':
-        newSub[1] = false; // top-right
-        newSub[3] = false; // bottom-right
+        targets = [1, 3]; // top-right, bottom-right
         break;
       case 'RIGHT':
-        newSub[0] = false; // top-left
-        newSub[2] = false; // bottom-left
+        targets = [0, 2]; // top-left, bottom-left
         break;
+      default:
+        targets = [0, 1];
+    }
+
+    // If targeted sub-tiles are already destroyed, destroy the remaining ones
+    const alreadyDestroyed = targets.every((i) => !newSub[i]);
+    if (alreadyDestroyed) {
+      // All targeted halves gone, destroy whatever is left
+      newSub[0] = false;
+      newSub[1] = false;
+      newSub[2] = false;
+      newSub[3] = false;
+    } else {
+      for (const i of targets) {
+        newSub[i] = false;
+      }
     }
 
     // If all sub-tiles destroyed, remove the brick entirely
