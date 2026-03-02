@@ -99,8 +99,39 @@ export function MainMenu() {
         <p>ESC - Pause</p>
       </div>
 
-      <div style={{ position: 'absolute', bottom: 30, fontSize: 10, color: '#444' }}>
+      <div style={{ position: 'absolute', bottom: 30, fontSize: 10, color: '#444', textAlign: 'center', lineHeight: 1.8 }}>
         PRESS ENTER TO START
+      </div>
+
+      {/* Author Info */}
+      <div style={{
+        position: 'absolute', top: 20, right: 24,
+        display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 4,
+        fontSize: 9, color: '#555', lineHeight: 1.6,
+      }}>
+        <span style={{ color: '#777', fontSize: 10 }}>Developed by</span>
+        <span style={{ color: '#FFD700', fontSize: 11 }}>Huynh Pham Quoc Dat</span>
+        <span>A modern reimagining of the classic 1990 Battle City,</span>
+        <span>crafted with love for retro gaming.</span>
+        <div style={{ display: 'flex', gap: 12, marginTop: 4 }}>
+          <a href="mailto:quocdat732@gmail.com" style={{ color: '#888', textDecoration: 'none' }}
+            onMouseEnter={(e) => (e.currentTarget.style.color = '#FFD700')}
+            onMouseLeave={(e) => (e.currentTarget.style.color = '#888')}>
+            quocdat732@gmail.com
+          </a>
+          <a href="https://github.com/quocdat202" target="_blank" rel="noopener noreferrer"
+            style={{ color: '#888', textDecoration: 'none' }}
+            onMouseEnter={(e) => (e.currentTarget.style.color = '#FFD700')}
+            onMouseLeave={(e) => (e.currentTarget.style.color = '#888')}>
+            GitHub
+          </a>
+          <a href="https://huynhphamquocdat-portfolio.vercel.app/" target="_blank" rel="noopener noreferrer"
+            style={{ color: '#888', textDecoration: 'none' }}
+            onMouseEnter={(e) => (e.currentTarget.style.color = '#FFD700')}
+            onMouseLeave={(e) => (e.currentTarget.style.color = '#888')}>
+            Portfolio
+          </a>
+        </div>
       </div>
     </div>
   );
